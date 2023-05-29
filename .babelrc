@@ -1,0 +1,13 @@
+{
+	"presets":[
+		["@babel/env"],
+		["@babel/preset-react"],
+		[
+			"@babel/preset-typescript",
+			{
+				"isTsx":true,
+				"allExtensions":true
+			}
+		]
+	]
+}

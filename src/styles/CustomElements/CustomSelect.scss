@@ -1,0 +1,42 @@
+.custom-select{
+	&-selected{
+		position: relative;
+		border-radius: .4rem;
+		display:flex;
+		flex-direction: column;
+		gap:.5rem;
+		width: 10rem;
+		padding:1rem;
+		border:none;
+		font-family: Nunito Sans;
+		font-size:medium;
+		font-weight: 600;
+		cursor: pointer;
+	}
+	&-options{
+
+		border-radius: .4rem;
+		left:0;
+		width:100%;
+		display:none;
+		flex-direction: column;
+		gap:1rem;
+		padding:1rem;
+		position:absolute;
+		margin-top: 3rem;
+
+		button{
+			border:none;
+			font-family: Nunito Sans;
+			font-size:medium;
+			font-weight: 600;
+			cursor: pointer;
+		}
+	};
+}
+
+.custom-select-selected:focus-within  .custom-select-options{
+	
+	display:flex;
+}
+

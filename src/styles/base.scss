@@ -1,0 +1,85 @@
+
+$lm-el : hsl(0, 0%, 100%);
+$dm-el : hsl(209, 23%, 22%);
+$lm-bg : hsl(0, 0%, 95%);
+$dm-bg : hsl(207, 26%, 17%);
+$lm-txt: hsl(200, 15%, 8%);
+$dm-txt: hsl(0, 0%, 100%);
+$lm-inp: hsl(0, 0%, 52%);
+
+//Fonts
+:root{
+	@font-face {
+		font-family: Nunito Sans;
+		src: local(Nunito Sans),
+			url(./assets/NunitoSans_10pt-ExtraBold.ttf) format('truetype');
+		font-weight: 800;
+	};
+	@font-face {
+		font-family: Nunito Sans;
+		src: local(Nunito Sans),
+			url(./assets/NunitoSans_10pt-SemiBold.ttf) format('truetype');
+		font-weight: 600;
+	};
+	@font-face {
+		font-family: Nunito Sans;
+		src: local(Nunito Sans),
+			url(./assets/NunitoSans_10pt-Light.ttf) format('truetype');
+		font-weight: 300;
+	
+	};
+}
+
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: inherit;
+}
+
+body{
+	font-family: Nunito Sans;
+}
+
+.dark{
+	&-bg{
+		background: $dm-bg;
+	}
+	&-el{
+		background: $dm-el;
+		color: $dm-txt;
+		svg{
+			fill:$dm-txt;
+		}
+	}
+	&-txt{
+		color: $dm-txt;
+		svg{
+			fill:$dm-txt;
+		}
+	}
+	
+}
+
+.light{
+	&-bg{
+		background: $lm-bg;
+	}
+	&-el{
+		background: $lm-el;
+		color: $lm-txt;
+		svg{
+			fill:$lm-txt;
+			stroke:$lm-txt;
+		}
+	}
+	&-txt{
+		color: $lm-txt;
+		svg{
+			fill:$lm-txt;
+			stroke:$lm-txt;
+		}
+	}
+	
+}
