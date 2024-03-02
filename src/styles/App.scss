@@ -1,35 +1,50 @@
 .header{
 	display:flex;
 	justify-content: space-between;
-	padding: .7rem min(5rem,2%);
+	padding-inline: min(5rem,2%);
+	padding-block: 1rem;
+	margin-bottom:1rem;
 	h1{
 		font-size: min(2rem,5vw);
-		font-weight: 900;
+		font-family: Nunito Sans;
+		letter-spacing: 1px;
+		align-self: center;
+		font-weight: 800;
 		white-space: nowrap;
 	}
 }
 
-.theme-selector{
-	align-self: center;
-	display:flex;
-	gap:0.5rem;
+.link{
+	text-decoration: none;
+	color: inherit;
+	font-family: inherit;
+}
+
+.theme{
+	border-radius: $curve;
+	display: flex;
+	align-items: center;
+	gap:.5rem;
+	border:none;
 	cursor: pointer;
 	border: none;
+	padding:.2rem .3rem;
 
+	svg{
+		&>*{
+			stroke: $text;
+			fill: $text;
+		}
+	}
 	span{
+
 		align-self: center;
 		font-weight: 600;
 		font-size: min(2rem,5vw);
 	}
-	svg{
-		align-self: center;
-		transform: translateY(-0.1rem);
-		width: min(2rem,5vw);
-		aspect-ratio: 1;
-	}
 }
 
 .container{
-	height: 100vh;
+	min-height: 100vh;
 }
 

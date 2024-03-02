@@ -1,11 +1,9 @@
-
-$lm-el : hsl(0, 0%, 100%);
-$dm-el : hsl(209, 23%, 22%);
-$lm-bg : hsl(0, 0%, 95%);
-$dm-bg : hsl(207, 26%, 17%);
-$lm-txt: hsl(200, 15%, 8%);
-$dm-txt: hsl(0, 0%, 100%);
-$lm-inp: hsl(0, 0%, 52%);
+$text:var(--text);
+$el:var(--el);
+$bg:var(--bg);
+$border:var(--border);
+$curve:var(--curve);
+$hover:var(--hover);
 
 //Fonts
 :root{
@@ -21,65 +19,66 @@ $lm-inp: hsl(0, 0%, 52%);
 			url(./assets/NunitoSans_10pt-SemiBold.ttf) format('truetype');
 		font-weight: 600;
 	};
-	@font-face {
-		font-family: Nunito Sans;
-		src: local(Nunito Sans),
-			url(./assets/NunitoSans_10pt-Light.ttf) format('truetype');
-		font-weight: 300;
-	
-	};
 }
-
 
 *{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	font-family: inherit;
+	font-size:inherit;
+	font-weight: 700;
+	color:$text;
+}
+
+.button{
+	display: block;
+	appearance: none;
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+	padding:.5em .2em;
+	border:2px $border solid;
+	background: $el;
+	border-radius: $curve;
+	text-align: center;
+	&:hover, &:focus{
+			filter: $hover;
+	}
+}
+
+.bg{
+	background: $bg;
+}
+
+.el{
+	background: $el;
 }
 
 body{
 	font-family: Nunito Sans;
 }
 
-.dark{
-	&-bg{
-		background: $dm-bg;
-	}
-	&-el{
-		background: $dm-el;
-		color: $dm-txt;
-		svg{
-			fill:$dm-txt;
-		}
-	}
-	&-txt{
-		color: $dm-txt;
-		svg{
-			fill:$dm-txt;
-		}
-	}
-	
+.container{
+	--curve:.4rem;
+	background: $bg;
+	min-height: 100svh;
 }
 
-.light{
-	&-bg{
-		background: $lm-bg;
-	}
-	&-el{
-		background: $lm-el;
-		color: $lm-txt;
-		svg{
-			fill:$lm-txt;
-			stroke:$lm-txt;
-		}
-	}
-	&-txt{
-		color: $lm-txt;
-		svg{
-			fill:$lm-txt;
-			stroke:$lm-txt;
-		}
-	}
-	
+.container.dark{
+	--text:hsl(0, 0%, 100%);
+	--el:hsl(209, 23%, 25%);
+	--bg:hsl(207, 22%, 10%);
+	--border: hsl(0,0%,40%);
+	--hover:brightness(1.1);
 }
+.container.light{
+	--text:hsl(0, 0%, 0%);
+	--el: hsl(0, 0%, 100%);
+	--bg: hsl(0, 0%, 85%);
+	--border: hsl(0,0%,60%);
+	--hover:brightness(0.9);
+}
+
+
+

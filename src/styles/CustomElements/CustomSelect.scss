@@ -1,42 +1,37 @@
-.custom-select{
-	&-selected{
-		position: relative;
-		border-radius: .4rem;
-		display:flex;
-		flex-direction: column;
-		gap:.5rem;
-		width: 10rem;
-		padding:1rem;
-		border:none;
-		font-family: Nunito Sans;
-		font-size:medium;
-		font-weight: 600;
-		cursor: pointer;
-	}
-	&-options{
-
-		border-radius: .4rem;
-		left:0;
-		width:100%;
-		display:none;
-		flex-direction: column;
-		gap:1rem;
-		padding:1rem;
-		position:absolute;
-		margin-top: 3rem;
-
-		button{
-			border:none;
-			font-family: Nunito Sans;
-			font-size:medium;
-			font-weight: 600;
-			cursor: pointer;
-		}
-	};
+.customselect-container{
+	font-size: large;
+	position: relative;
 }
 
-.custom-select-selected:focus-within  .custom-select-options{
+.customselect-selected{
+	width: 100%;
+}
+
+.customselect-options{
+	z-index: 1000;
+	border-radius: $curve;
+	border:$border 2px solid;
+	background: $el;
+	top:110%;
+	width:100%;
+	display:none;
+	flex-direction: column;
+	gap:.1rem;
+	padding:.5rem;
+	position:absolute;
 	
+	button{
+		border:none;
+	}
+
+	.hover{
+		filter: brightness(1.1);
+		border:2px $border solid;
+		margin:-2px;
+	}
+}
+
+.customselect-container:focus-within  .customselect-options{
 	display:flex;
 }
 

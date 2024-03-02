@@ -1,14 +1,13 @@
-import React, { useContext, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { ThemeContext } from '../context/themeContext'
+import React, {useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { CountryProps } from '../@types/custom'
 import { Countries } from '../requests/countries'
 import Info from '../components/Info'
 
-const Detail = function() {
-	const {theme} = useContext(ThemeContext)
+export default function Detail() {
 	const location = useLocation()
 	const [country, setCountry] = React.useState<CountryProps>(null)
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		Countries.getCountryByName(location.pathname.split('/').pop())
@@ -16,14 +15,18 @@ const Detail = function() {
 				setCountry(data[0]) })
 	}, [location.pathname])
 
-	if (country) { console.log(country); return (
-		<div className={`detail ${theme}-bg`}>
-			<Link to={'/'} className={`nav-button ${theme}-el`}>
-				Back</Link>
+	if (country) 
+	return (
+		<div className="detail">
+			<button 
+				type='button'
+				onClick={()=>navigate(-1)}
+				className="button navbutton"
+			>
+				Back
+			</button>
 			<Info {...country} />
 		</div>
-	) }
+	)
 	return <></>
 }
-
-export default Detail

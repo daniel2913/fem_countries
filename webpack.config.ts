@@ -1,35 +1,26 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import HtmlWebpackPlugin from "html-webpack-plugin"
+import Webpack from "webpack"
+import path from "path";
 
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require("webpack")
-const isProduction = process.env.NODE_ENV == 'production';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 
 const stylesHandler = MiniCssExtractPlugin.loader;
 
 
 
-const config = {
+const config: Webpack.Configuration = {
 	entry: './src/index.tsx',
-	output: {
-		path: path.resolve(__dirname, 'dist'),
-		publicPath: '/'
-	},
-	devServer: {
-		open: true,
-		host: 'local-ip',
-		hot: true,
-		historyApiFallback: true
-	},
+	devtool: "eval-source-map",
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
 		}),
-		
+
 		new MiniCssExtractPlugin(),
-		
+
 		// Add your plugins here
 		// Learn more about plugins from https://webpack.js.org/configuration/plugins/
 	],
@@ -38,7 +29,7 @@ const config = {
 			{
 				test: /\.(ts|tsx)$/i,
 				loader: 'babel-loader',
-				options: {presets:['@babel/preset-typescript']},
+				options: { presets: ['@babel/preset-typescript'] },
 				exclude: ['/node_modules/'],
 			},
 			{
@@ -46,12 +37,17 @@ const config = {
 				use: [stylesHandler, 'css-loader', 'postcss-loader', 'sass-loader'],
 			},
 			{
-				test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+				test: /\.(eot|ttf|woff|woff2|png|jpg|gif)$/i,
 				type: 'asset',
 			},
-			
-			// Add your rules for custom modules here
-			// Learn more about loaders from https://webpack.js.org/loaders/
+			{
+				test:/\.svg$/i,
+				issuer:/\.tsx$/i,
+				loader:'@svgr/webpack',
+				options:{
+					icon:"30px"
+				}
+			}
 		],
 	},
 	resolve: {
@@ -66,8 +62,8 @@ const config = {
 module.exports = () => {
 	if (isProduction) {
 		config.mode = 'production';
-		
-		
+
+
 	} else {
 		config.mode = 'development';
 	}

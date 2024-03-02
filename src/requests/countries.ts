@@ -19,7 +19,11 @@ const CountriesRequests = {
 }
 
 export const Countries = {
-	getAllCountries: () : Promise<CountryCardProps[]> => CountriesRequests.get('/all' + MODES.short),
-	getCountryByName: (name:string): Promise<CountryProps[]> => CountriesRequests.get('/name/' + name + MODES.full),
-	getCountryByCode: (codes:string[]): Promise<CountryMinProps[]> => CountriesRequests.get('/alpha?codes=' + codes.join(',') + ',' + MODES.name)
+	getAllCountries: () : Promise<CountryCardProps[]> => CountriesRequests.get(`/all${MODES.short}`),
+	getCountryByName: (name:string): Promise<CountryProps[]> => CountriesRequests.get(`/name/${name}${MODES.full}`),
+	getCountryByCode: (codes:string[]): Promise<CountryMinProps[]> => CountriesRequests.get(`/alpha?codes=${codes.join(',')},${MODES.name}`),
+	searchCountries: (region:string) : Promise<CountryCardProps[]>=>{ 
+		const regionQuery = region ? `/region/${region}` : ""
+		return CountriesRequests.get(`${regionQuery}/${MODES.short}`)
+}
 }

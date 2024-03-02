@@ -1,28 +1,30 @@
 import React from 'react'
-import { ThemeContext } from '../context/themeContext'
 import CountryCard from '../components/CountryCard'
 import { CountryCardProps } from '../@types/custom'
 import Filters from '../components/Filters'
+import { useLoaderData, useSearchParams } from 'react-router-dom'
 
-const Home = function({countries}:{countries:CountryCardProps[]}) {
-	const {theme} = React.useContext(ThemeContext)
+export default function Home() {
+	const countries = useLoaderData() as CountryCardProps[]
 	const [filtered, setFiltered] = React.useState(countries)
-
-	
+	const [params] = useSearchParams()
+	const [_, startTransition] = React.useTransition()
+	React.useEffect(() =>
+		startTransition(() => {
+			const filter = params.get("name")
+			setFiltered(countries.filter(c => 
+			!filter ||
+				c.name.common.toLowerCase().includes(filter) ||
+				c.name.official.toLowerCase().includes(filter)
+		))
+		}), [params,countries])
 	return (
-		<div className={`home ${theme}-bg`}>
-			
-			<Filters theme={theme} countries={countries} setFiltered={setFiltered}/>
-
-			<div className='country-grid'>
-				{filtered.map(country => {
-					return (
-						<CountryCard key = {country.name.official} theme={theme} {...country}/>
-					)
-				})}
-			</div>
-		</div>
+		<main className="home-grid bg">
+			<Filters />
+			{filtered.map(country =>
+				<CountryCard key={country.name.official} {...country} />
+			)}
+		</main>
 	)
 }
 
-export default Home

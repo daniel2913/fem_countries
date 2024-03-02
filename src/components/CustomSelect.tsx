@@ -1,28 +1,66 @@
 import React from 'react'
 
-type props={
-	values:string[],
-	value: string,
-	setValue: (a:string)=>void,
-	theme: string,
+type props = {
+	values: string[],
+	defaultValue?:string
+	onChange: (a: string) => void,
+	className:string
 }
 
-const CustomSelect = function({values, value, setValue, theme}:props){
-	console.log(theme)
+export default function CustomSelect(props: props) {
+	const [selected, setSelected] = React.useState(0)
+	const [value,setValue] = React.useState(props.values.includes(props.defaultValue) ? props.defaultValue : props.values[0])
+	const ref = React.useRef<HTMLButtonElement>(null)
+
+	function handleKeys(e: React.KeyboardEvent) {
+		if (ref.current !== document.activeElement) return
+		if (e.key === "ArrowDown") {
+			e.preventDefault()
+			setSelected((props.values.length + selected + 1) % props.values.length)
+		}
+		if (e.key === "ArrowUp") {
+			e.preventDefault()
+			setSelected((props.values.length + selected - 1) % props.values.length)
+		}
+		if (e.key === "Enter" || e.key === "Space") {
+			e.preventDefault()
+			ref.current.blur()
+			setValue(props.values[selected])
+		}
+	}
+
+	React.useEffect(()=>props.onChange(value),[value,props.onChange])
+
 	return (
-		<button className={`custom-select-selected ${theme}-el`}>
-			{value}
-			<div className={`custom-select-options ${theme}-el`}>
-				{values.map((value, i) => {
+		<div
+			className={`customselect-container ${props.className}`}
+		>
+			<button
+				type='button'
+				className="button customselect-selected"
+				onBlur={() => setSelected(0)}
+				onKeyDown={handleKeys}
+				ref={ref}
+			>
+				{value}
+			</button>
+			<div
+				className="customselect-options bg"
+			>
+				{props.values.map((value, idx) => {
 					return (
-						<button className={`${theme}-el`} key={i} onClick={(e) => { e.currentTarget.blur(); setValue(value) }}>
+						<button
+							tabIndex={-1}
+							type='button'
+							className={`button ${idx === selected ? "hover" : ""}`}
+							key={value}
+							onClick={(e) => { e.currentTarget.blur(); setValue(value)}}
+						>
 							{value}
 						</button>
 					)
 				})}
 			</div>
-		</button>
+		</div>
 	)
 }
-
-export default CustomSelect

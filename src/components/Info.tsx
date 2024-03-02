@@ -1,34 +1,32 @@
-import React, { useContext, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { ThemeContext } from '../context/themeContext'
-import { CountryMinProps, CountryName, CountryProps } from '../@types/custom'
+import React from 'react'
+import { Link} from 'react-router-dom'
+import { CountryMinProps, CountryProps } from '../@types/custom'
 import { Countries } from '../requests/countries'
 
 
-const getNativeNames = function(country:CountryProps):string[]{
+function getNativeNames(country:CountryProps):string[]{
 	return Object.values(country.name.nativeName).map(name => name.official)
 }
 
-const getCurrencies = function(country:CountryProps):string[]{
+function getCurrencies(country:CountryProps):string[]{
 	return Object.values(country.currencies).map(cur => cur.name)
 }
 
-const getLanguages = function(country:CountryProps):string[]{
+function getLanguages(country:CountryProps):string[]{
 	return Object.values(country.languages)
 }
 
-const Info = function(country:CountryProps) {
-	const {theme} = useContext(ThemeContext)
+function Info(country:CountryProps) {
 	const [neighbors, setNeighbors] = React.useState<CountryMinProps[]>([])
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (country.borders.length > 0){
 			Countries.getCountryByCode(country.borders).then(data => setNeighbors(data))
 		}
 	}, [country.borders])
 
 	return (
-		<article className={`country-details ${theme}-el`}>
+		<article className="country-details">
 			<img src={country.flags.png} alt={country.flags.alt}/>
 			<h2>{country.name.official}</h2>
 			<div className='detailed-description-main'>
@@ -49,7 +47,7 @@ const Info = function(country:CountryProps) {
 				<span>Border Countries: </span>
 				{neighbors.map(country => {
 					return (
-						<Link to={'/country/' + country.name.common} className={`nav-button ${theme}-el`}>{country.name.common}</Link>
+						<Link key={country.name.official} to={`/${country.name.official}`} className="nav-button">{country.name.common}</Link>
 					)
 				})}
 			</div>

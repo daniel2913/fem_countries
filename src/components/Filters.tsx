@@ -1,36 +1,42 @@
 import React from 'react'
-import { CountryCardProps } from 'src/@types/custom'
 import CustomSelect from './CustomSelect'
+import { useSearchParams } from 'react-router-dom'
 
+const regions = ['Filter by Region', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania', 'Antarctic']
 
-type props = {
-	countries:CountryCardProps[],
-	setFiltered: (a:CountryCardProps[])=>void,
-	theme: string
-}
+const Filters = React.memo(function Filters() {
+	const [searchParams, setSearchParams] = useSearchParams()
+	const [name,setName] = React.useState(searchParams.get("name")||"")
+	const [region,setRegion] = React.useState(searchParams.get("region")||regions[0])
+	const ref = React.useRef<HTMLInputElement>(null)
 
-const Filters = function({countries, setFiltered, theme}:props) {
-	const [search, setSearch] = React.useState('')
-	const [region, setRegion] = React.useState('Filter by Region')
-	const regions = ['Filter by Region', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania', 'Antarctic']
+	React.useEffect(()=>
+		setSearchParams(old => {
+			if (name!==null) old.set("name",name)
+			if (region) old.set("region",region === "Filter by Region" ? "" : region)
+			return old
+		})
+	,[name,region,setSearchParams])
 
-	const filter = function(){
-		console.log('filtered')
-		setFiltered(countries?.filter(country => {
-			return (((! search || country.name.common.toLowerCase().includes(search.toLowerCase()))
-			|| (! search || country.name.official.toLowerCase().includes(search.toLowerCase())))
-			&& ( region === 'Filter by Region' || country.region === region)
-			)
-		}))
-	}
-
-	React.useEffect(filter, [search, region, countries, setFiltered])
-	return (
-		<div className='config'>
-			<input className={`search-box ${theme}-el`} value={search} onChange={(e) => setSearch(e.target.value)}></input>
-			<CustomSelect value={region} theme={theme} setValue={setRegion} values={regions}/>
-		</div>
-	)
-}
+return (
+	<div className="filter">
+		<input
+			ref={ref}
+			onKeyDown={e=>{if(e.key==="Escape") ref.current.blur()}}
+			type="search"
+			placeholder='Search'
+			className="search"
+			value={name}
+			onChange={(e) => setName(e.currentTarget.value)}
+		/>
+		<CustomSelect
+			defaultValue={region}
+			className="filter-select"
+			onChange={setRegion}
+			values={regions}
+		/>
+	</div>
+)
+})
 
 export default Filters
