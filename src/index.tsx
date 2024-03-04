@@ -1,10 +1,7 @@
 import './styles/index.scss'
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom'
-import Detail from './routes/Detailed'
-import Home from './routes/Home'
 import { Countries } from './requests/countries'
 
 const root = createRoot(document.getElementById('root'))
@@ -15,7 +12,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: "/:name",
-				element: <Detail />,
+				lazy: ()=>import("./routes/Detailed.tsx"),
 				loader: async params => {
 					try {
 						const res = await Countries.getCountryByName(params.params.name)
@@ -28,7 +25,7 @@ const router = createBrowserRouter([
 			},
 			{
 				index:true,
-				element: <Home />,
+				lazy: ()=>import("./routes/Home.tsx"),
 				shouldRevalidate: (params) => {
 					const newParams = new URL(params.nextUrl).searchParams
 					const oldParams = new URL(params.currentUrl).searchParams

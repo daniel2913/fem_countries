@@ -3,7 +3,6 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 import Webpack from "webpack"
 import path from "path";
 
-
 const isProduction = process.env.NODE_ENV === 'production';
 
 
@@ -13,12 +12,11 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 
 const config: Webpack.Configuration = {
 	entry: './src/index.tsx',
-	devtool: "eval-source-map",
+	devtool: isProduction ? false : "eval-source-map",
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
 		}),
-
 		new MiniCssExtractPlugin(),
 
 		// Add your plugins here

@@ -5,7 +5,7 @@
 		"module": "es6",
 		"allowJs": true,
 		"moduleResolution": "nodenext",
-		"jsx":"react",
+		"jsx":"react-jsx",
 		"allowImportingTsExtensions":true,
 		"noEmit": true,
 		"typeRoots": ["./src/@types", "./node_modules/@types"],
