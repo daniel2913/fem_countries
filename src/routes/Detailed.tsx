@@ -4,7 +4,7 @@ import { CountryProps } from '../@types/custom'
 import { Countries } from '../requests/countries'
 import Info from '../components/Info'
 
-export default function Detail() {
+export function Component() {
 	const location = useLocation()
 	const [country, setCountry] = React.useState<CountryProps>(null)
 	const navigate = useNavigate()

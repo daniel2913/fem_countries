@@ -4,7 +4,7 @@ import { CountryCardProps } from '../@types/custom'
 import Filters from '../components/Filters'
 import { useLoaderData, useSearchParams } from 'react-router-dom'
 
-export default function Home() {
+export  function Component() {
 	const countries = useLoaderData() as CountryCardProps[]
 	const [filtered, setFiltered] = React.useState(countries)
 	const [params] = useSearchParams()

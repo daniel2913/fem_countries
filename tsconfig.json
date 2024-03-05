@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
 		"noImplicitAny": true,
-		"module": "es6",
+		"module": "2022es",
 		"allowJs": true,
 		"moduleResolution": "nodenext",
 		"jsx":"react-jsx",
