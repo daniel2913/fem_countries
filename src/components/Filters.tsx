@@ -15,7 +15,7 @@ const Filters = React.memo(function Filters() {
 			if (name!==null) old.set("name",name)
 			if (region) old.set("region",region === "Filter by Region" ? "" : region)
 			return old
-		})
+		},{replace:true})
 	,[name,region,setSearchParams])
 
 return (
