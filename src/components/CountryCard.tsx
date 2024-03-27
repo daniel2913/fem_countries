@@ -10,7 +10,7 @@ export default function CountryCard({
 }: CountryCardProps) {
 	return (
 		<article className="country-card">
-			<Link to={`/${name.common}`}>
+			<Link to={`/country/${name.official}`}>
 				<img loading="lazy" src={flags.png} alt={flags.alt} />
 				<div className="description">
 					<h2 className="country-name">{name.official}</h2>

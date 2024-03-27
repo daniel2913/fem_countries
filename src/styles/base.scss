@@ -81,8 +81,18 @@ body{
 }
 
 
-.center-content {
-  display:flex;
-  justify-content: center;
-  align-items: center;
+.notfound {
+  div{
+    position: absolute;
+    right: 50%;
+    bottom:50%;
+      text-align: center;
+    translate: 50% 50%;
+    h2{
+      font-size: 4rem;
+    }
+    a{
+      font-size:1.5rem;
+    }
+  }
 }

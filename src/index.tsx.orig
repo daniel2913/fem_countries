@@ -6,10 +6,15 @@ import {
 	redirect,
 } from "react-router-dom";
 import App from "./App";
+<<<<<<< HEAD
+import { type CountryMinProps, countryRequests } from "./requests/countries";
+=======
 import {
 	type CountryMinProps,
+	type CountryProps,
 	countryRequests,
 } from "./requests/countries";
+>>>>>>> test
 import Detailed from "./routes/Detailed.tsx";
 import Home from "./routes/Home.tsx";
 import "./styles/index.scss";
@@ -62,12 +67,21 @@ const router = createBrowserRouter([
 				loader: async ({ params }) => {
 					try {
 						if (!("name" in params) || !params.name) throw "Bad Request";
+<<<<<<< HEAD
 						const countries = (
 							await countryRequests.getCountryByName(params.name)
 						);
 						const country = countries.length === 1
 							? countries[0]
 							: countries.find(c=>c.name.official===params.name)
+=======
+						const countries: CountryProps[] =
+							await countryRequests.getCountryByName(params.name);
+						const country =
+							countries.length === 1
+								? countries[0]
+								: countries.find((c) => c.name.official === params.name);
+>>>>>>> test
 						if (!country) throw "Not Found";
 						let neighbors: CountryMinProps[] = [];
 						if (country.borders.length)

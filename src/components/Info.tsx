@@ -11,7 +11,7 @@ export default function Info({ country, neighbors }: Props) {
 		<article className="country-details">
 			<img src={country.flags.png} alt={country.flags.alt} />
 			<h2>{country.name.official}</h2>
-			<div className="detailed-description-main">
+			<section className="detailed-description-main">
 				<p>
 					<span>Native Names: </span>
 					{Object.values(country.name.nativeName)
@@ -34,9 +34,9 @@ export default function Info({ country, neighbors }: Props) {
 					<span>Capital: </span>
 					{country.capital}
 				</p>
-			</div>
+			</section>
 
-			<div className="detailed-description-extra">
+			<section className="detailed-description-extra">
 				<p>
 					<span>Top Level Domains: </span>
 					{country.tld.join(", ")}
@@ -51,21 +51,23 @@ export default function Info({ country, neighbors }: Props) {
 					<span>Languages: </span>
 					{Object.values(country.languages).join(", ")}
 				</p>
-			</div>
-			<div className="neighbors">
+			</section>
+			{ (neighbors.length || null) &&
+			<section className="neighbors">
 				<span>Border Countries: </span>
 				{neighbors.map((country) => {
 					return (
 						<Link
 							key={country.name.official}
-							to={`/${country.name.official}`}
+							to={`/country/${country.name.official}`}
 							className="nav-button"
 						>
-							{country.name.common}
+							{country.name.official}
 						</Link>
 					);
 				})}
-			</div>
+			</section>
+			}
 		</article>
 	);
 }

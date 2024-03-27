@@ -48,7 +48,10 @@
     font-size: large;
 	}
 	p{
+<<<<<<< HEAD
+=======
 		font-size:large;
+>>>>>>> test
     margin-bottom: 1rem;
 	}
 }
