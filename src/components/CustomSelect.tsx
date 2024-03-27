@@ -1,66 +1,64 @@
-import React from 'react'
+import React from "react";
 
 type props = {
-	values: string[],
-	defaultValue?:string
-	onChange: (a: string) => void,
-	className:string
-}
+	values: string[];
+	value: string;
+	onChange: (a: string) => void;
+	className: string;
+	placeholder?: string;
+};
 
 export default function CustomSelect(props: props) {
-	const [selected, setSelected] = React.useState(0)
-	const [value,setValue] = React.useState(props.values.includes(props.defaultValue) ? props.defaultValue : props.values[0])
-	const ref = React.useRef<HTMLButtonElement>(null)
+	const values = [props.placeholder || "Set Value", ...props.values];
+	const [selected, setSelected] = React.useState(values.indexOf(props.value));
+	const ref = React.useRef<HTMLButtonElement>(null);
 
 	function handleKeys(e: React.KeyboardEvent) {
-		if (ref.current !== document.activeElement) return
+		if (ref.current !== document.activeElement) return;
 		if (e.key === "ArrowDown") {
-			e.preventDefault()
-			setSelected((props.values.length + selected + 1) % props.values.length)
+			e.preventDefault();
+			setSelected((values.length + selected + 1) % values.length);
 		}
 		if (e.key === "ArrowUp") {
-			e.preventDefault()
-			setSelected((props.values.length + selected - 1) % props.values.length)
+			e.preventDefault();
+			setSelected((values.length + selected - 1) % values.length);
 		}
 		if (e.key === "Enter" || e.key === "Space") {
-			e.preventDefault()
-			ref.current.blur()
-			setValue(props.values[selected])
+			e.preventDefault();
+			ref.current?.blur();
+			props.onChange(selected === 0 ? "" : values[selected]);
 		}
 	}
 
-	React.useEffect(()=>props.onChange(value),[value,props.onChange])
-
 	return (
-		<div
-			className={`customselect-container ${props.className}`}
-		>
+		<div className={`customselect-container ${props.className}`}>
 			<button
-				type='button'
+				type="button"
 				className="button customselect-selected"
 				onBlur={() => setSelected(0)}
 				onKeyDown={handleKeys}
 				ref={ref}
 			>
-				{value}
+				{props.value || props.placeholder || "Select value"}
 			</button>
-			<div
-				className="customselect-options bg"
-			>
-				{props.values.map((value, idx) => {
+			<div className="customselect-options bg">
+				{values.map((value, idx) => {
 					return (
 						<button
 							tabIndex={-1}
-							type='button'
+							type="button"
 							className={`button ${idx === selected ? "hover" : ""}`}
 							key={value}
-							onClick={(e) => { e.currentTarget.blur(); setValue(value)}}
+							onClick={(e) => {
+								e.currentTarget.blur();
+								props.onChange(idx === 0 ? "" : value);
+							}}
 						>
 							{value}
 						</button>
-					)
+					);
 				})}
 			</div>
 		</div>
-	)
+	);
 }

@@ -1,14 +1,14 @@
 {
 	"compilerOptions": {
+		"module": "ESNext",
 		"allowSyntheticDefaultImports": true,
 		"noImplicitAny": true,
-		"module": "2022es",
 		"allowJs": true,
-		"moduleResolution": "nodenext",
+		"moduleResolution": "bundler",
 		"jsx":"react-jsx",
 		"allowImportingTsExtensions":true,
 		"noEmit": true,
-		"typeRoots": ["./src/@types", "./node_modules/@types"],
-		"baseUrl": "./"
+		"baseUrl": "./",
+		"strict":true
 	},
 }

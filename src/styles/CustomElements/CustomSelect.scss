@@ -5,6 +5,7 @@
 
 .customselect-selected{
 	width: 100%;
+  text-transform: capitalize;
 }
 
 .customselect-options{
@@ -21,6 +22,7 @@
 	position:absolute;
 	
 	button{
+    text-transform: capitalize;
 		border:none;
 	}
 

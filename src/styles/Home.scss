@@ -12,6 +12,8 @@
 	grid-column-end: -1;
 
 	.search{
+    color:black;
+    background: white;
 		justify-self: flex-start;
 		width: min(60vw, 30rem);
 		border-radius: $curve;
@@ -73,6 +75,7 @@
 	img{
 		width:100%;
 		height:10rem;
+    object-fit:cover;
 	}
 	.description{
 		padding:.1rem 1rem .5rem 1rem;
@@ -93,4 +96,3 @@
 		}
 	}
 }
-

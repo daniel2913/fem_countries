@@ -1,32 +1,23 @@
-import React, {useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { CountryProps } from '../@types/custom'
-import { Countries } from '../requests/countries'
-import Info from '../components/Info'
+import { useLoaderData, useNavigate } from "react-router-dom";
+import Info from "../components/Info";
+import type { CountryMinProps, CountryProps } from "../requests/countries";
 
-export function Component() {
-	const location = useLocation()
-	const [country, setCountry] = React.useState<CountryProps>(null)
-	const navigate = useNavigate()
-
-	useEffect(() => {
-		Countries.getCountryByName(location.pathname.split('/').pop())
-			.then(data => {
-				setCountry(data[0]) })
-	}, [location.pathname])
-
-	if (country) 
+export default function Detailed() {
+	const { country, neighbors } = useLoaderData() as {
+		country: CountryProps;
+		neighbors: CountryMinProps[];
+	};
+	const navigate = useNavigate();
 	return (
 		<div className="detail">
-			<button 
-				type='button'
-				onClick={()=>navigate(-1)}
+			<button
+				type="button"
+				onClick={() => navigate(-1)}
 				className="button navbutton"
 			>
 				Back
 			</button>
-			<Info {...country} />
+			<Info country={country} neighbors={neighbors} />
 		</div>
-	)
-	return <></>
+	);
 }
